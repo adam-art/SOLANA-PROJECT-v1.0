@@ -1,0 +1,21 @@
+{
+  "name": "yield-protocol-workspace",
+  "version": "1.0.0",
+  "description": "Yield Protocol Monorepo",
+  "scripts": {
+    "test": "anchor test",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.30.0",
+    "@prisma/client": "^5.22.0",
+    "prisma": "^5.10.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^4.3.5"
+  }
+}

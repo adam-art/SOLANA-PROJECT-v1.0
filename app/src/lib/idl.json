@@ -1,0 +1,286 @@
+{
+    "address": "DjnbAUiRJ91rSftQqkgZZXqHiCZ7BpvYemxWhS6TwEaU",
+    "metadata": {
+        "name": "yield_protocol",
+        "version": "0.1.0",
+        "spec": "0.1.0",
+        "description": "Created with Anchor"
+    },
+    "instructions": [
+        {
+            "name": "initialize_market",
+            "discriminator": [
+                35,
+                35,
+                189,
+                193,
+                155,
+                146,
+                126,
+                170
+            ],
+            "accounts": [
+                {
+                    "name": "admin",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "market",
+                    "writable": true,
+                    "pda": {
+                        "seeds": [
+                            {
+                                "kind": "const",
+                                "value": [
+                                    109,
+                                    97,
+                                    114,
+                                    107,
+                                    101,
+                                    116
+                                ]
+                            },
+                            {
+                                "kind": "account",
+                                "path": "asset_mint"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "asset_mint"
+                },
+                {
+                    "name": "sy_mint"
+                },
+                {
+                    "name": "pt_mint"
+                },
+                {
+                    "name": "yt_mint"
+                },
+                {
+                    "name": "system_program",
+                    "address": "11111111111111111111111111111111"
+                }
+            ],
+            "args": [
+                {
+                    "name": "maturity_date",
+                    "type": "i64"
+                }
+            ]
+        },
+        {
+            "name": "create_leverage_position",
+            "discriminator": [
+                221,
+                192,
+                237,
+                72,
+                85,
+                203,
+                219,
+                178
+            ],
+            "accounts": [
+                {
+                    "name": "user",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "market",
+                    "writable": true
+                },
+                {
+                    "name": "leverage_position",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "system_program",
+                    "address": "11111111111111111111111111111111"
+                }
+            ],
+            "args": [
+                {
+                    "name": "collateral",
+                    "type": "u64"
+                },
+                {
+                    "name": "leverage",
+                    "type": "u8"
+                }
+            ]
+        },
+        {
+            "name": "stake_depin",
+            "discriminator": [
+                168,
+                12,
+                179,
+                180,
+                248,
+                119,
+                101,
+                252
+            ],
+            "accounts": [
+                {
+                    "name": "user",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "pool",
+                    "writable": true
+                },
+                {
+                    "name": "stake",
+                    "writable": true,
+                    "pda": {
+                        "seeds": [
+                            {
+                                "kind": "const",
+                                "value": [
+                                    100,
+                                    101,
+                                    112,
+                                    105,
+                                    110,
+                                    95,
+                                    115,
+                                    116,
+                                    97,
+                                    107,
+                                    101
+                                ]
+                            },
+                            {
+                                "kind": "account",
+                                "path": "user"
+                            },
+                            {
+                                "kind": "account",
+                                "path": "pool"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "system_program",
+                    "address": "11111111111111111111111111111111"
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                }
+            ]
+        }
+    ],
+    "accounts": [
+        {
+            "name": "Market",
+            "discriminator": [
+                219,
+                190,
+                213,
+                55,
+                0,
+                227,
+                198,
+                154
+            ]
+        },
+        {
+            "name": "LeveragePosition",
+            "discriminator": [
+                193,
+                40,
+                48,
+                18,
+                59,
+                137,
+                108,
+                119
+            ]
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "HealthFactorTooLow",
+            "msg": "Health factor too low. Position is liquidatable."
+        }
+    ],
+    "types": [
+        {
+            "name": "Market",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "admin",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "asset_mint",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "sy_mint",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "pt_mint",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "yt_mint",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "maturity_date",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "tvl",
+                        "type": "u64"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "LeveragePosition",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "user",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "market",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "collateral_amount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "debt_amount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "leverage",
+                        "type": "u8"
+                    }
+                ]
+            }
+        }
+    ]
+}

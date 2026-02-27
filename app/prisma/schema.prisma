@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id @default(uuid())
+  walletAddress    String   @unique
+  joinDate         DateTime @default(now())
+  
+  positions        Position[]
+  leveragePositions LeveragePosition[]
+  depinStakes      DePINStake[]
+  transactions     Transaction[]
+}
+
+model Market {
+  id               String   @id @default(uuid())
+  asset            String
+  underlyingAsset  String
+  baseApy          Float
+  maturityDate     DateTime
+  tvl              Float    @default(0)
+  totalSy          Float    @default(0)
+  totalPt          Float    @default(0)
+  totalYt          Float    @default(0)
+  
+  positions        Position[]
+}
+
+model Position {
+  id               String   @id @default(uuid())
+  userId           String
+  marketId         String
+  syAmount         Float    @default(0)
+  ptAmount         Float    @default(0)
+  ytAmount         Float    @default(0)
+  
+  user             User     @relation(fields: [userId], references: [id])
+  market           Market   @relation(fields: [marketId], references: [id])
+  
+  @@unique([userId, marketId])
+}
+
+model Transaction {
+  id               String   @id @default(uuid())
+  signature        String   @unique
+  userId           String
+  type             String   // DEPOSIT, SPLIT, MERGE, TRADE, LEVERAGE...
+  amount           Float
+  asset            String
+  timestamp        DateTime @default(now())
+  
+  user             User     @relation(fields: [userId], references: [id])
+}
+
+model LeveragePosition {
+  id               String   @id @default(uuid())
+  userId           String
+  collateralAsset  String
+  collateralAmount Float
+  leverage         Float
+  debtAmount       Float
+  healthFactor     Float
+  status           String   // OPEN, CLOSED, LIQUIDATED
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  user             User     @relation(fields: [userId], references: [id])
+}
+
+model DePINProject {
+  id               String   @id @default(uuid())
+  name             String
+  tokenSymbol      String
+  apy              Float
+  totalStaked      Float    @default(0)
+  
+  stakes           DePINStake[]
+}
+
+model DePINStake {
+  id               String   @id @default(uuid())
+  userId           String
+  projectId        String
+  amount           Float
+  stakedAt         DateTime @default(now())
+  
+  user             User         @relation(fields: [userId], references: [id])
+  project          DePINProject @relation(fields: [projectId], references: [id])
+}
+
+model PriceHistory {
+  id               String   @id @default(uuid())
+  asset            String
+  price            Float
+  timestamp        DateTime @default(now())
+}
+
+model YieldRate {
+  id               String   @id @default(uuid())
+  marketId         String
+  apy              Float
+  timestamp        DateTime @default(now())
+}
