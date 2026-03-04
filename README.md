@@ -1,6 +1,6 @@
 # Yield Protocol
 
-Aplikasi DeFi Full-Stack di ekosistem Solana yang memungkinkan pengguna melakukan pemisahan hasil (yield-stripping) dari aset berbunga. Aplikasi ini telah dioptimalkan untuk kompatibilitas multi-wallet global seperti **Phantom, Solflare, OKX Wallet, Trust Wallet, dll** menggunakan `@solana/wallet-adapter-react`.
+Aplikasi Yield-Protocol DeFi Full-Stack di ekosistem Solana yang memungkinkan pengguna melakukan pemisahan hasil (yield-stripping) dari aset berbunga. Aplikasi ini telah dioptimalkan untuk kompatibilitas multi-wallet global seperti **Phantom, Solflare, OKX Wallet, Trust Wallet, dll** menggunakan `@solana/wallet-adapter-react`.
 
 ## Fitur Utama & Auto-Kalkulasi
 1. **Pemisahan Yield (Sy/PT/YT)**: Setor aset dan pisahkan menjadi Principal Token (PT) dan Yield Token (YT). Aplikasi akan menghitung biaya protokol (0.1%) dan mendistribusikan token PT dan YT secara presisi (1:1).
